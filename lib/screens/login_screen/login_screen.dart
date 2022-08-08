@@ -1,7 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_second_course/services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +42,24 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const Text("Entre ou Registre-se"),
                   TextFormField(
+                    controller: _emailController,
                     decoration: const InputDecoration(
                       label: Text("E-mail"),
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     decoration: const InputDecoration(label: Text("Senha")),
                     keyboardType: TextInputType.visiblePassword,
                     maxLength: 16,
                     obscureText: true,
                   ),
                   ElevatedButton(
-                      onPressed: () {}, child: const Text("Continuar")),
+                      onPressed: () {
+                        tryLogin(context);
+                      },
+                      child: const Text("Continuar")),
                 ],
               ),
             ),
@@ -54,5 +67,17 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void tryLogin(BuildContext context) async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    try {
+      String token = await authService.login(email, password);
+      Navigator.pushReplacementNamed(context, 'home');
+    } on UserNotFoundException {
+      //TODO: Criar novo usuário
+      print("Criar novo usuário");
+    }
   }
 }
