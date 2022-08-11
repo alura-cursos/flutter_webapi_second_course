@@ -10,12 +10,14 @@ class JournalCard extends StatelessWidget {
   final Journal? journal;
   final DateTime showedDate;
   final Function refreshFunction;
-  const JournalCard({
-    Key? key,
-    this.journal,
-    required this.showedDate,
-    required this.refreshFunction,
-  }) : super(key: key);
+  final String userId;
+  const JournalCard(
+      {Key? key,
+      this.journal,
+      required this.showedDate,
+      required this.refreshFunction,
+      required this.userId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,10 +119,12 @@ class JournalCard extends StatelessWidget {
 
   callAddJournalScreen(BuildContext context, {Journal? journal}) {
     Journal internalJournal = Journal(
-        id: const Uuid().v1(),
-        content: "",
-        createdAt: showedDate,
-        updatedAt: showedDate);
+      id: const Uuid().v1(),
+      content: "",
+      createdAt: showedDate,
+      updatedAt: showedDate,
+      userId: userId,
+    );
 
     if (journal != null) {
       internalJournal = journal;

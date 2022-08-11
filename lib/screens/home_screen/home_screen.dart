@@ -24,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _listScrollController = ScrollController();
   final JournalService _journalService = JournalService();
 
+  String userId = '';
+
   @override
   void initState() {
     refresh();
@@ -52,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         controller: _listScrollController,
         children: generateListJournalCards(
+          userId: userId,
           windowPage: windowPage,
           currentDay: currentDay,
           database: database,
@@ -70,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (token != null && id != null && email != null) {
         _journalService.getAll(id).then((List<Journal> listJournal) {
           setState(() {
+            userId = id;
             database = {};
             for (Journal journal in listJournal) {
               database[journal.id] = journal;
