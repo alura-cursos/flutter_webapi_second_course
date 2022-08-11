@@ -2,19 +2,9 @@
   "learnhttp": {},
   "users": [
     {
-      "email": "ricarth.lima@alura.com.br",
-      "password": "$2a$10$bZgT0V0SvsUWhCWKPQMvsO96DYScE5zr/pnRGJzlSHdazsbiXX/xm",
+      "email": "ricarth2@gmail.com",
+      "password": "$2a$10$SmIRIg5fWr6Rjt..PgbS4u1LmJe42NTxLdDoQsDZpv49/e.DFvxjG",
       "id": 1
-    },
-    {
-      "email": "ricarth@gmail.com",
-      "password": "$2a$10$dt3WK2roW.opgOfEaGijFu.tmuC7394Eiog.ua891cEATOBxUlZbi",
-      "id": 2
-    },
-    {
-      "email": "ricarth32@gmail.com",
-      "password": "$2a$10$62dTw/ThCmipoW.Zn3WfD.unp9dsgMszCG7yIdn3.wM621aUvyRsi",
-      "id": 3
     }
   ],
   "journals": [

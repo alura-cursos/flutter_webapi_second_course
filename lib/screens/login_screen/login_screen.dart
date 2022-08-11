@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_second_course/screens/commom/confirmation_dialog.dart';
 import 'package:flutter_webapi_second_course/services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -76,8 +77,20 @@ class LoginScreen extends StatelessWidget {
       String token = await authService.login(email, password);
       Navigator.pushReplacementNamed(context, 'home');
     } on UserNotFoundException {
-      //TODO: Criar novo usuário
-      print("Criar novo usuário");
+      showConfirmationDialog(
+        context,
+        title: "Usuário ainda não existe",
+        content: "Deseja criar um novo usuário com email $email?",
+        affirmativeOption: "Criar",
+      ).then(
+        (value) async {
+          if (value) {
+            //TODO: Tratar caso do usuário não existente
+            String token = await authService.register(email, password);
+            Navigator.pushReplacementNamed(context, 'home');
+          }
+        },
+      );
     }
   }
 }

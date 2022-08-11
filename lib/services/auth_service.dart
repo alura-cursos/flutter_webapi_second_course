@@ -11,6 +11,8 @@ class AuthService {
   //TODO: Modularizar essa URL para todos os services.
   static const String url = "http://192.168.1.112:3000/";
 
+  //TODO: Criar recursos para o próprio service
+
   http.Client client = InterceptedClient.build(
     interceptors: [LoggingInterceptor()],
   );
@@ -31,7 +33,25 @@ class AuthService {
     }
 
     String token = json.decode(response.body)["accessToken"];
-    print(token);
+    saveToken(token);
+    return token;
+  }
+
+  Future<String> register(String email, String password) async {
+    http.Response response = await client.post(
+      Uri.parse("${url}register"),
+      body: {"email": email, "password": password},
+    );
+
+    if (response.statusCode != 200) {
+      //TODO: Implementar outros casos
+      switch (response.body) {
+        case "Email already exists":
+          throw UserAlreadyExists();
+      }
+    }
+
+    String token = json.decode(response.body)["accessToken"];
     saveToken(token);
     return token;
   }
@@ -43,3 +63,5 @@ class AuthService {
 }
 
 class UserNotFoundException implements Exception {}
+
+class UserAlreadyExists implements Exception {}
