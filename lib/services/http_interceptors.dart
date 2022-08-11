@@ -23,22 +23,3 @@ class LoggingInterceptor implements InterceptorContract {
     return data;
   }
 }
-
-class AddTokenToHeaderInterceptor implements InterceptorContract {
-  @override
-  Future<RequestData> interceptRequest({required RequestData data}) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("accessToken");
-
-    try {
-      data.headers["Authorization"] = "Bearer $token";
-    } catch (e) {
-      print(e);
-    }
-    return data;
-  }
-
-  @override
-  Future<ResponseData> interceptResponse({required ResponseData data}) async =>
-      data;
-}
