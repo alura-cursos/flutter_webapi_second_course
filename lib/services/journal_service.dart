@@ -10,7 +10,10 @@ class JournalService {
   static const String resource = "journals/";
 
   http.Client client = InterceptedClient.build(
-    interceptors: [LoggingInterceptor()],
+    interceptors: [
+      LoggingInterceptor(),
+      AddTokenToHeaderInterceptor(),
+    ],
   );
 
   String getURL() {
@@ -53,8 +56,9 @@ class JournalService {
     return false;
   }
 
-  Future<List<Journal>> getAll() async {
-    http.Response response = await client.get(getUri());
+  Future<List<Journal>> getAll(String id) async {
+    http.Response response =
+        await client.get(Uri.parse("${url}users/$id/$resource"));
 
     if (response.statusCode != 200) {
       //TODO: Criar uma exceção personalizada
