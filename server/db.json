@@ -10,6 +10,11 @@
       "email": "ricarth3@gmail.com",
       "password": "$2a$10$M.OlicU/dDtZdxIh3FmpBem/udUU/S/s98GoR6BLnNWAdOMtq1KzS",
       "id": 2
+    },
+    {
+      "email": "ricarth4@gmail.com",
+      "password": "$2a$10$L2WCDIrwK/ehyZD6wMRQE.AQvdmi.kjz5vigCp1JyjhpI9HctCK9.",
+      "id": 3
     }
   ],
   "journals": [
@@ -26,6 +31,13 @@
       "created_at": "2022-08-02 20:15:11.127928",
       "updated_at": "2022-08-02 20:15:11.127928",
       "userId": 1
+    },
+    {
+      "id": "ce6050b0-199a-11ed-ac64-3fd456587aff",
+      "content": "Um belo dia, nao?",
+      "created_at": "2022-08-10 17:26:56.658890",
+      "updated_at": "2022-08-10 17:26:56.658890",
+      "userId": "1"
     }
   ]
 }

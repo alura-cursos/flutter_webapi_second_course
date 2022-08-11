@@ -61,7 +61,30 @@ class _HomeScreenState extends State<HomeScreen> {
           refreshFunction: refresh,
         ),
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Sair"),
+              onTap: () {
+                logout();
+              },
+            )
+          ],
+        ),
+      ),
     );
+  }
+
+  logout() {
+    SharedPreferences.getInstance().then((sharedPreferences) {
+      sharedPreferences.remove('accessToken');
+      sharedPreferences.remove('id');
+      sharedPreferences.remove('email');
+
+      Navigator.pushReplacementNamed(context, 'login');
+    });
   }
 
   void refresh() async {
