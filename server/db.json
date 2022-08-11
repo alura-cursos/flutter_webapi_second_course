@@ -5,6 +5,11 @@
       "email": "ricarth2@gmail.com",
       "password": "$2a$10$SmIRIg5fWr6Rjt..PgbS4u1LmJe42NTxLdDoQsDZpv49/e.DFvxjG",
       "id": 1
+    },
+    {
+      "email": "ricarth3@gmail.com",
+      "password": "$2a$10$M.OlicU/dDtZdxIh3FmpBem/udUU/S/s98GoR6BLnNWAdOMtq1KzS",
+      "id": 2
     }
   ],
   "journals": [

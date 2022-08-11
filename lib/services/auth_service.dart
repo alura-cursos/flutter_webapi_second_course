@@ -32,9 +32,7 @@ class AuthService {
       throw const HttpException("");
     }
 
-    String token = json.decode(response.body)["accessToken"];
-    saveToken(token);
-    return token;
+    return saveInfosFromResponse(response.body);
   }
 
   Future<String> register(String email, String password) async {
@@ -51,14 +49,19 @@ class AuthService {
       }
     }
 
-    String token = json.decode(response.body)["accessToken"];
-    saveToken(token);
-    return token;
+    return saveInfosFromResponse(response.body);
   }
 
-  saveToken(String token) async {
+  Future<String> saveInfosFromResponse(String body) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString("accessToken", token);
+
+    Map<String, dynamic> map = json.decode(body);
+
+    sharedPreferences.setString("accessToken", map["accessToken"]);
+    sharedPreferences.setString("id", map["user"]["id"].toString());
+    sharedPreferences.setString("email", map["user"]["email"]);
+
+    return map["accessToken"];
   }
 }
 
