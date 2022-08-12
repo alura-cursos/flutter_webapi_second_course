@@ -1,7 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_second_course/screens/commom/confirmation_dialog.dart';
+import 'package:flutter_webapi_second_course/screens/commom/exception_dialog.dart';
 import 'package:flutter_webapi_second_course/services/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -85,12 +88,19 @@ class LoginScreen extends StatelessWidget {
       ).then(
         (value) async {
           if (value) {
-            //TODO: Tratar caso do usuário não existente
             String token = await authService.register(email, password);
             Navigator.pushReplacementNamed(context, 'home');
           }
         },
       );
+    } on NotValidEmailException {
+      showExceptionDialog(context, content: 'O e-mail não é válido!');
+    } on UserAlreadyExistsException {
+      showExceptionDialog(context, content: 'O usuário já existe');
+    } on PasswordIncorrectException {
+      showExceptionDialog(context, content: 'Senha incorreta!');
+    } on HttpException catch (e) {
+      showExceptionDialog(context, content: e.message);
     }
   }
 }
