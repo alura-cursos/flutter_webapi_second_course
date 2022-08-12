@@ -23,13 +23,8 @@ class AuthService {
       body: {"email": email, "password": password},
     );
 
-    if (response.statusCode == 400 &&
-        json.decode(response.body) == "Cannot find user") {
-      throw UserNotFoundException();
-    }
-
     if (response.statusCode != 200) {
-      throw const HttpException("");
+      verifyException(json.decode(response.body));
     }
 
     return saveInfosFromResponse(response.body);
@@ -41,12 +36,8 @@ class AuthService {
       body: {"email": email, "password": password},
     );
 
-    if (response.statusCode != 200) {
-      //TODO: Implementar outros casos
-      switch (response.body) {
-        case "Email already exists":
-          throw UserAlreadyExists();
-      }
+    if (response.statusCode != 201) {
+      verifyException(json.decode(response.body));
     }
 
     return saveInfosFromResponse(response.body);
@@ -63,8 +54,26 @@ class AuthService {
 
     return map["accessToken"];
   }
+
+  verifyException(String error) {
+    switch (error) {
+      case "Email already exists":
+        throw UserAlreadyExistsException();
+      case "Cannot find user":
+        throw UserNotFoundException();
+      case "Email format is invalid":
+        throw NotValidEmailException();
+      case "Incorrect password":
+        throw PasswordIncorrectException();
+    }
+    throw HttpException(error);
+  }
 }
 
 class UserNotFoundException implements Exception {}
 
-class UserAlreadyExists implements Exception {}
+class UserAlreadyExistsException implements Exception {}
+
+class NotValidEmailException implements Exception {}
+
+class PasswordIncorrectException implements Exception {}

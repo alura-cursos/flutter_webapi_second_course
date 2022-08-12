@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,11 +36,11 @@ class JournalService {
       body: journalJSON,
     );
 
-    if (response.statusCode == 201) {
-      return true;
+    if (response.statusCode != 201) {
+      verifyException(json.decode(response.body));
     }
 
-    return false;
+    return true;
   }
 
   Future<bool> edit(String id, Journal journal) async {
@@ -55,11 +56,11 @@ class JournalService {
       body: journalJSON,
     );
 
-    if (response.statusCode == 200) {
-      return true;
+    if (response.statusCode != 200) {
+      verifyException(json.decode(response.body));
     }
 
-    return false;
+    return true;
   }
 
   Future<List<Journal>> getAll(String id) async {
@@ -73,8 +74,7 @@ class JournalService {
     );
 
     if (response.statusCode != 200) {
-      //TODO: Criar uma exceção personalizada
-      throw Exception();
+      verifyException(json.decode(response.body));
     }
 
     List<Journal> result = [];
@@ -97,11 +97,11 @@ class JournalService {
       },
     );
 
-    if (response.statusCode == 200) {
-      return true;
+    if (response.statusCode != 200) {
+      verifyException(json.decode(response.body));
     }
 
-    return false;
+    return true;
   }
 
   Future<String> getToken() async {
@@ -112,4 +112,15 @@ class JournalService {
     }
     return '';
   }
+
+  verifyException(String error) {
+    switch (error) {
+      case 'jwt expired':
+        throw TokenExpiredException();
+    }
+
+    throw HttpException(error);
+  }
 }
+
+class TokenExpiredException implements Exception {}

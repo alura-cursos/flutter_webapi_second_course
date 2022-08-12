@@ -15,6 +15,11 @@
       "email": "ricarth4@gmail.com",
       "password": "$2a$10$L2WCDIrwK/ehyZD6wMRQE.AQvdmi.kjz5vigCp1JyjhpI9HctCK9.",
       "id": 3
+    },
+    {
+      "email": "ricarth333@gmail.com",
+      "password": "$2a$10$wGseytQRBJy1qbR5OXU5fOkYPOjx7ws3eDwb/rzgh.vHVEVjI9Fo2",
+      "id": 4
     }
   ],
   "journals": [
@@ -38,6 +43,13 @@
       "created_at": "2022-08-10 17:26:56.658890",
       "updated_at": "2022-08-10 17:26:56.658890",
       "userId": "1"
+    },
+    {
+      "id": "7d7e62d0-19a0-11ed-ac64-3fd456587aff",
+      "content": "Vou descansar um pouco!",
+      "created_at": "2022-08-06 17:27:24.213149",
+      "updated_at": "2022-08-06 17:27:24.213149",
+      "userId": "3"
     }
   ]
 }
