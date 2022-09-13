@@ -24,7 +24,11 @@ class AuthService {
     );
 
     if (response.statusCode != 200) {
-      verifyException(json.decode(response.body));
+      if (response.body.toString() == "Cannot find user") {
+        throw UserNotFoundException();
+      }
+
+      throw HttpException(response.body.toString());
     }
 
     return saveInfosFromResponse(response.body);
@@ -37,7 +41,7 @@ class AuthService {
     );
 
     if (response.statusCode != 201) {
-      verifyException(json.decode(response.body));
+      throw HttpException(response.body.toString());
     }
 
     return saveInfosFromResponse(response.body);
@@ -54,26 +58,6 @@ class AuthService {
 
     return map["accessToken"];
   }
-
-  verifyException(String error) {
-    switch (error) {
-      case "Email already exists":
-        throw UserAlreadyExistsException();
-      case "Cannot find user":
-        throw UserNotFoundException();
-      case "Email format is invalid":
-        throw NotValidEmailException();
-      case "Incorrect password":
-        throw PasswordIncorrectException();
-    }
-    throw HttpException(error);
-  }
 }
 
 class UserNotFoundException implements Exception {}
-
-class UserAlreadyExistsException implements Exception {}
-
-class NotValidEmailException implements Exception {}
-
-class PasswordIncorrectException implements Exception {}

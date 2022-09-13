@@ -73,13 +73,13 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void tryLogin(BuildContext context) async {
+  void tryLogin(BuildContext context) {
     String email = _emailController.text;
     String password = _passwordController.text;
-    try {
-      String token = await authService.login(email, password);
+
+    authService.login(email, password).then((token) {
       Navigator.pushReplacementNamed(context, 'home');
-    } on UserNotFoundException {
+    }).catchError((e) {
       showConfirmationDialog(
         context,
         title: "Usuário ainda não existe",
@@ -88,19 +88,15 @@ class LoginScreen extends StatelessWidget {
       ).then(
         (value) async {
           if (value) {
-            String token = await authService.register(email, password);
-            Navigator.pushReplacementNamed(context, 'home');
+            authService.register(email, password).then((token) {
+              Navigator.pushReplacementNamed(context, 'home');
+            });
           }
         },
       );
-    } on NotValidEmailException {
-      showExceptionDialog(context, content: 'O e-mail não é válido!');
-    } on UserAlreadyExistsException {
-      showExceptionDialog(context, content: 'O usuário já existe');
-    } on PasswordIncorrectException {
-      showExceptionDialog(context, content: 'Senha incorreta!');
-    } on HttpException catch (e) {
-      showExceptionDialog(context, content: e.message);
-    }
+    }, test: (e) => e is UserNotFoundException).catchError((e) {
+      HttpException exception = e as HttpException;
+      showExceptionDialog(context, content: exception.message);
+    }, test: (e) => e is HttpException);
   }
 }
