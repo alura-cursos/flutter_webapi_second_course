@@ -3,11 +3,17 @@
 # Flutter: Web API 2
 
 Esse curso de Flutter vai te ensinar a: 
+
 -> ??
+
 -> ??
+
 -> ??
+
 -> ??
+
 -> ??
+
 
 ## 🔨 Projeto: ??
 
