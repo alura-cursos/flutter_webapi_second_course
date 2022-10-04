@@ -15,7 +15,7 @@ Repositório do Curso de Flutter com Web API II - Evoluindo na Integração, da 
 
 O código de Flutter: Web API II - Evoluindo na Integração dá continuidade direta ao projeto **Simple Journal** do curso *Flutter com Web API - Integrando sua Aplicação*, se tratando de uma aplicação de Diário Pessoal onde, nesse repositório, adicionamos as funções de alterar e remover uma entrada, e de autenticação e autorização dos usuários.
 
-![]()
+![GIF animado demonstrando funcionalidades do projeto](https://github.com/alura-cursos/flutter_webapi_second_course/raw/main/gif02.gif)
 
 ## 🛠️ Abrir e rodar o projeto
 
