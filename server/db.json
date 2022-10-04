@@ -20,6 +20,11 @@
       "email": "ricarth333@gmail.com",
       "password": "$2a$10$wGseytQRBJy1qbR5OXU5fOkYPOjx7ws3eDwb/rzgh.vHVEVjI9Fo2",
       "id": 4
+    },
+    {
+      "email": "ricarth5@gmail.com",
+      "password": "$2a$10$FFUQchFohgNX3J5XswiRRuf1Sqq2bN1xcCeQBVcFYBOtoN70zw1vW",
+      "id": 5
     }
   ],
   "journals": [
@@ -50,6 +55,13 @@
       "created_at": "2022-08-06 17:27:24.213149",
       "updated_at": "2022-08-06 17:27:24.213149",
       "userId": "3"
+    },
+    {
+      "id": "8c51ad20-440d-11ed-8ed2-819061e0424c",
+      "content": "Essa é uma entrada de RICARTH2 e nao de RICARTH5",
+      "created_at": "2022-10-02 14:54:06.582358",
+      "updated_at": "2022-10-02 14:54:06.582358",
+      "userId": "1"
     }
   ]
 }

@@ -1,6 +1,5 @@
 import 'package:http_interceptor/http_interceptor.dart';
 import 'package:logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoggingInterceptor implements InterceptorContract {
   Logger logger = Logger(printer: PrettyPrinter(methodCount: 0));

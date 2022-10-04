@@ -1,22 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_webapi_second_course/services/web_client.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_interceptor/http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/journal.dart';
-import 'http_interceptors.dart';
 
 class JournalService {
-  static const String url = "http://192.168.1.112:3000/";
   static const String resource = "journals/";
 
-  http.Client client = InterceptedClient.build(
-    interceptors: [LoggingInterceptor()],
-  );
+  http.Client client = WebClient().client;
 
   String getURL() {
-    return "$url$resource";
+    return "${WebClient.url}$resource";
   }
 
   Uri getUri() {
@@ -66,7 +61,7 @@ class JournalService {
   Future<List<Journal>> getAll(String id) async {
     String token = await getToken();
     http.Response response = await client.get(
-      Uri.parse("${url}users/$id/$resource"),
+      Uri.parse("${WebClient.url}users/$id/$resource"),
       headers: {
         'Content-type': 'application/json',
         'Authorization': 'Bearer $token',
